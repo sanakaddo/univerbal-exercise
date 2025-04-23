@@ -4,7 +4,7 @@ Thank you for taking the time to complete this coding exercise. We hope you will
 
 Below you find instructions on how to set up the project and a list of tasks to work on.
 
-You are completely free in choosing what tasks you want to work on and in what order, prioritize them according to how important you think they are. We do not expect yout to finish all of them and prefer quality over quantity. You are allowed to change anything - feel free to modify any config and add any library or tool to get things done. You can also come up with your own ideas, but please indicate this if you do so.
+You are completely free in choosing what tasks you want to work on and in what order, prioritize them according to how important you think they are. We do not expect you to finish all of them and prefer quality over quantity. You are allowed to change anything - feel free to modify any config and add any library or tool to get things done. You can also come up with your own ideas, but please indicate this if you do so.
 
 We want you to use git while working on the project. Please initialize a git repository in the project directory and commit all files with the message `init`. Keep commiting your changes regularly as you go and tick off tasks you have completed in this README. When you are done, commit the final version with the message `done` (max 4 hours, it's okay if this commit includes WIP). Feel free to continue working on the project after that, but this is not expected.
 
@@ -30,7 +30,7 @@ Don't forget to give us access to the repository by either making it public or i
 
 ## General
 
-- [ ] Running `npm start` does not start the app due to errors in the console
+- [ x ] Running `npm start` does not start the app due to errors in the console
 - [ ] Bottom tab navigation does not display icons
 - [ ] The app is not styled - make it pretty
 - [ ] The console should not display any warning nor errors in general
