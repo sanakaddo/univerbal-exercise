@@ -13,7 +13,7 @@ type Season = {
   episodes: Episode[];
 };
 
-export type TVSeries = {
+export type TvSeries = {
   id: Opaque<'tv-series-id'>;
   title: string;
   creator: string;

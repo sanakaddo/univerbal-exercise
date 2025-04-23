@@ -7,5 +7,5 @@ export type Movie = {
   releaseYear: number;
   genres: string[];
   rating: number;
-  runtimeMinutes: number;
+  runtimeMinutes?: number;
 };

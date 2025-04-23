@@ -1,11 +1,13 @@
-import { createAPIUrl } from '@/utils';
 import { Movie } from 'domain/movie';
+
+import { createAPIUrl } from '@/utils';
+
 
 const apiUrl = createAPIUrl();
 
 export async function findMoviesMatchingQuery(
-  signal: AbortSignal,
   params: Partial<Movie>,
+  signal: AbortSignal,
 ): Promise<Movie[]> {
   const url = new URL('/movies', apiUrl);
 

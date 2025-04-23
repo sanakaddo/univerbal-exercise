@@ -10,12 +10,19 @@ export const suggestions$ = atom(async (get, { signal }) => {
   const title = get(inputValue$);
   if (!title) return [];
 
-  const movies = await findMoviesMatchingQuery(signal, { title });
-  const tvSeries = await findTvSeriesMatchingQuery({ title });
+  const query = { title };
 
-  const result: Suggestion[] = [];
-  return result
-    .concat(movies)
-    .concat(tvSeries)
-    .filter((it) => it.title.includes(title));
+  try {
+    // Parallelise the requests  
+    const [movies, tvSeries] = await Promise.all([
+      findMoviesMatchingQuery( query, signal),
+      findTvSeriesMatchingQuery( query, signal),
+    ]);
+
+    return [...movies, ...tvSeries]
+      .map((item) => ({ id: item.id, title: item.title })) satisfies Suggestion[];
+  } catch (err) {
+    console.error('[suggestions$] fetch error:', err);
+    return [];
+  }
 });

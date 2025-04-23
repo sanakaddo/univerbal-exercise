@@ -1,4 +1,6 @@
+import { Movie } from 'domain/movie';
 import { User } from 'domain/user';
+import { Opaque } from 'domain/utils';
 
 import express from 'express';
 
@@ -19,8 +21,41 @@ app.use(corsConfig);
 const port = 3003;
 
 app.get('/movies', (req, res) => {
-  res.json(moviesData.movies);
+  const movies: Movie[] = moviesData.movies.map((movie) => ({
+    ...movie,
+    id: movie.id as Opaque<'movie-id'>, 
+  }));
+  
+  let results = movies;
+  const { title, releaseYear, genres, rating } = req.query;
+
+  if (title && typeof title === 'string') {
+    const lower = title.toLowerCase();
+    results = results.filter((movie) =>
+      movie.title.toLowerCase().includes(lower)
+    );
+  }
+
+  if (releaseYear && !isNaN(Number(releaseYear))) {
+    results = results.filter(
+      (movie) => movie.releaseYear === Number(releaseYear)
+    );
+  }
+
+  if (genres && typeof genres === 'string') {
+    const genreList = genres.split(',').map((g) => g.trim().toLowerCase());
+    results = results.filter((movie) =>
+      movie.genres.some((g) => genreList.includes(g.toLowerCase()))
+    );
+  }
+
+  if (rating && !isNaN(Number(rating))) {
+    results = results.filter((movie) => movie.rating >= Number(rating));
+  }
+
+  res.json(results);
 });
+
 
 app.get('/movies/:movieId', (req, res) => {
   res.json(moviesData.movies.find((it) => it.id === req.params.movieId));
@@ -38,8 +73,38 @@ app.get('/movies/recommended', async (req, res) => {
 });
 
 app.get('/tv-series', (req, res) => {
-  res.json(tvSeriesData.tvSeries);
+  let results = tvSeriesData.tvSeries;
+  
+
+  const { title, releaseYear, genres, rating } = req.query;
+
+  if (title && typeof title === 'string') {
+    const lower = title.toLowerCase();
+    results = results.filter((series) =>
+      series.title.toLowerCase().includes(lower)
+    );
+  }
+
+  if (releaseYear && !isNaN(Number(releaseYear))) {
+    results = results.filter(
+      (series) => series.releaseYear === Number(releaseYear)
+    );
+  }
+
+  if (genres && typeof genres === 'string') {
+    const genreList = genres.split(',').map((g) => g.trim().toLowerCase());
+    results = results.filter((series) =>
+      series.genres.some((g) => genreList.includes(g.toLowerCase()))
+    );
+  }
+
+  if (rating && !isNaN(Number(rating))) {
+    results = results.filter((series) => series.rating >= Number(rating));
+  }
+
+  res.json(results);
 });
+
 
 app.get('/tv-series/recommended', async (req, res) => {
   const timeoutMs = Math.max(2, Math.random() * 5) * 1000;
