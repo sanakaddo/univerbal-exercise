@@ -2,7 +2,6 @@ import { Movie } from 'domain/movie';
 
 import { createAPIUrl } from '@/utils';
 
-
 const apiUrl = createAPIUrl();
 
 export async function findMoviesMatchingQuery(
@@ -34,7 +33,6 @@ export async function getMovieByIdQuery(
   return (await request.json()) as Movie;
 }
 
-
 export async function getFeaturedMoviesQuery(
   signal: AbortSignal,
 ): Promise<Movie[]> {
@@ -63,7 +61,9 @@ export async function getTopRatedMoviesQuery(): Promise<Movie[]> {
   }
 }
 
-export async function getMoviePosterUrlById(movieId: string): Promise<string | undefined> {
+export async function getMoviePosterUrlById(
+  movieId: string,
+): Promise<string | undefined> {
   try {
     const url = new URL(`/movies/${movieId}/poster`, apiUrl);
     const res = await fetch(url.toString());

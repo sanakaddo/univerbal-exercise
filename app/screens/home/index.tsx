@@ -6,7 +6,7 @@ import { View } from 'react-native';
 
 export default function HomeScreen(): ReactNode {
   return (
-    <View >
+    <View>
       <View style={{ marginBottom: 40 }}>
         <Search />
       </View>

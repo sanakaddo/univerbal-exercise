@@ -1,8 +1,9 @@
-import { Poster } from '@/ui/poster';
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { featuredTvSeries$ } from './state';
 import { useAtom } from 'jotai';
-import { useEffect } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+
+import { featuredTvSeries$ } from './state';
+
+import { Poster } from '@/ui/poster';
 import { Rating } from '@/ui/rating';
 
 export function FeaturedTvSeries() {
@@ -17,7 +18,6 @@ export function FeaturedTvSeries() {
         data={featuredTvSeries}
         keyExtractor={(it) => it.id}
         renderItem={(it) => {
-          console.log(it.item.rating);
           return (
             <Entry
               title={it.item.title}
@@ -46,7 +46,6 @@ const featuredTvSeriesStyles = StyleSheet.create({
 });
 
 function Entry(props) {
-  console.log(props.title);
   return (
     <View style={entryStyles.root}>
       <View style={entryStyles.overlay}>

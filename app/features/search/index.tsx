@@ -15,8 +15,7 @@ import {
 
 import { inputValue$, suggestions$ } from './state';
 
-
-import { appRouteNames } from '@/routes'; 
+import { appRouteNames } from '@/routes';
 
 export type SearchProps = {
   style?: StyleProp<ViewStyle>;
@@ -28,7 +27,11 @@ export function Search({ style }: SearchProps): ReactNode {
   const suggestions = useAtomValue(loadable(suggestions$));
   const navigation = useNavigation();
 
-  const handleSelect = (item: { id: string; title: string; type: 'movie' | 'tv-series' }) => {
+  const handleSelect = (item: {
+    id: string;
+    title: string;
+    type: 'movie' | 'tv-series';
+  }) => {
     setInputValue('');
     if (item.type === 'movie') {
       navigation.navigate(appRouteNames.movie, { id: item.id });
@@ -49,14 +52,19 @@ export function Search({ style }: SearchProps): ReactNode {
       />
 
       {!!inputValue && suggestions.state === 'hasData' && (
-        <ScrollView style={searchStyles.suggestions} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          style={searchStyles.suggestions}
+          keyboardShouldPersistTaps="handled"
+        >
           {suggestions.data.map((suggestion, i) => (
             <TouchableOpacity
               key={i}
               onPress={() => handleSelect(suggestion)}
               style={searchStyles.suggestionEntry}
             >
-              <Text style={searchStyles.suggestionText}>{suggestion.title}</Text>
+              <Text style={searchStyles.suggestionText}>
+                {suggestion.title}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>

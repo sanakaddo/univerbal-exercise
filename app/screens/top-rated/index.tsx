@@ -51,22 +51,22 @@ export default function TopRatedScreen(): ReactNode {
 const styles = StyleSheet.create({
   root: {
     padding: 16,
-    flexGrow: 1, 
+    flexGrow: 1,
   },
 
   section: {
-    marginBottom: 32, 
+    marginBottom: 32,
   },
 
   title: {
-    fontSize: 24, 
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#333', 
+    color: '#333',
   },
 
   list: {
-    marginBottom: 40, 
+    marginBottom: 40,
   },
 
   errorText: {
