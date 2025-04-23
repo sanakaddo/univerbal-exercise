@@ -4,7 +4,7 @@ import { findTvSeriesMatchingQuery } from '@/infrastructure/repositories/tv-seri
 
 export const inputValue$ = atom<string | undefined>();
 
-type Suggestion = { title: string; id: string };
+export type Suggestion = { title: string; id: string; type: 'movie' | 'tv-series' };
 
 export const suggestions$ = atom(async (get, { signal }) => {
   const title = get(inputValue$);
@@ -19,8 +19,10 @@ export const suggestions$ = atom(async (get, { signal }) => {
       findTvSeriesMatchingQuery( query, signal),
     ]);
 
-    return [...movies, ...tvSeries]
-      .map((item) => ({ id: item.id, title: item.title })) satisfies Suggestion[];
+    return [
+      ...movies.map((item) => ({ id: item.id, title: item.title, type: 'movie' as const })),
+      ...tvSeries.map((item) => ({ id: item.id, title: item.title, type: 'tv-series' as const })),
+    ];
   } catch (err) {
     console.error('[suggestions$] fetch error:', err);
     return [];

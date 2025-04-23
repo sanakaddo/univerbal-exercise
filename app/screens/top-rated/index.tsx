@@ -1,23 +1,26 @@
-import { List } from '@/ui/list';
+import { TvSeries } from 'domain/tv-series';
+
 import { useAtom } from 'jotai';
 import { loadable } from 'jotai/utils';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
+
 import { topRatedMovies$ } from './state';
-import { TVSeries } from 'domain/tv-series';
+
 import { getTopRatedTvSeriesQuery } from '@/infrastructure/repositories/tv-series';
+import { List } from '@/ui/list';
 import { Loader } from '@/ui/loader';
 
 // Displays movies with rating above 75%
 export default function TopRatedScreen(): ReactNode {
   const [topRatedMoviesLoadable] = useAtom(loadable(topRatedMovies$));
 
-  const [tvSeres, set] = useState<TVSeries[]>([]);
+  const [tvSeres, set] = useState<TvSeries[]>([]);
 
   // fetches data for tv series
   useEffect(() => {
     getTopRatedTvSeriesQuery().then((res) => {
-      set(res as TVSeries[]);
+      set(res as TvSeries[]);
     });
   }, []);
 
@@ -47,11 +50,29 @@ export default function TopRatedScreen(): ReactNode {
 
 const styles = StyleSheet.create({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
+    padding: 16,
+    flexGrow: 1, 
+  },
+
+  section: {
+    marginBottom: 32, 
   },
 
   title: {
-    marginBottom: 24,
+    fontSize: 24, 
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#333', 
+  },
+
+  list: {
+    marginBottom: 40, 
+  },
+
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: 20,
   },
 });

@@ -1,3 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
+import { useAtom, useAtomValue } from 'jotai';
+import { loadable } from 'jotai/utils';
 import React, { ReactNode, useRef } from 'react';
 import {
   StyleProp,
@@ -7,10 +10,13 @@ import {
   ViewStyle,
   Text,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
+
 import { inputValue$, suggestions$ } from './state';
-import { useAtom, useAtomValue } from 'jotai';
-import { loadable } from 'jotai/utils';
+
+
+import { appRouteNames } from '@/routes'; 
 
 export type SearchProps = {
   style?: StyleProp<ViewStyle>;
@@ -20,6 +26,16 @@ export function Search({ style }: SearchProps): ReactNode {
   const inputRef = useRef<TextInput>(null);
   const [inputValue, setInputValue] = useAtom(inputValue$);
   const suggestions = useAtomValue(loadable(suggestions$));
+  const navigation = useNavigation();
+
+  const handleSelect = (item: { id: string; title: string; type: 'movie' | 'tv-series' }) => {
+    setInputValue('');
+    if (item.type === 'movie') {
+      navigation.navigate(appRouteNames.movie, { id: item.id });
+    } else {
+      navigation.navigate(appRouteNames.tvSeries, { id: item.id });
+    }
+  };
 
   return (
     <View style={[searchStyles.root, style]}>
@@ -33,11 +49,15 @@ export function Search({ style }: SearchProps): ReactNode {
       />
 
       {!!inputValue && suggestions.state === 'hasData' && (
-        <ScrollView style={searchStyles.suggestions}>
+        <ScrollView style={searchStyles.suggestions} keyboardShouldPersistTaps="handled">
           {suggestions.data.map((suggestion, i) => (
-            <View key={i} style={searchStyles.suggestionEntry}>
+            <TouchableOpacity
+              key={i}
+              onPress={() => handleSelect(suggestion)}
+              style={searchStyles.suggestionEntry}
+            >
               <Text style={searchStyles.suggestionText}>{suggestion.title}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       )}
