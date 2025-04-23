@@ -1,8 +1,10 @@
-import { Poster } from '@/ui/poster';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { movies$ } from './state';
 import { useAtomValue } from 'jotai';
 import { loadable } from 'jotai/utils';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { movies$ } from './state';
+
+import { Poster } from '@/ui/poster';
 
 type Props = {
   style?: any;

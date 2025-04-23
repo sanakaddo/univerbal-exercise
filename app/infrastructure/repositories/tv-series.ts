@@ -51,8 +51,8 @@ export async function getTopRatedTvSeriesQuery(): Promise<TvSeries[]> {
 
     const json = (await request.json()) as TvSeries[];
 
-    // top rated has to have a rating above 60
-    return json.filter((it) => it.rating > 60);
+    // top rated has to have a rating above 75%
+    return json.filter((it) => it.rating >= 75 && it.rating <= 100);
   } catch (err) {
     console.error('[getTopRatedTvSeriesQuery] error:', err);
     return [];

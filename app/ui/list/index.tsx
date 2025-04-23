@@ -42,7 +42,7 @@ type ListEntryProps = {
 
 function ListEntry({ style, title, rating }: ListEntryProps): ReactNode {
   // top rated has to have a rating above 75%
-  const styles = getListEntryStyle(rating > 75);
+  const styles = getListEntryStyle(rating >= 75);
 
   return (
     <View style={[styles.root, style]}>
