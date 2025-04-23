@@ -30,7 +30,7 @@ Don't forget to give us access to the repository by either making it public or i
 
 ## General
 
-- [ x ] Running `npm start` does not start the app due to errors in the console
+- [x] Running `npm start` does not start the app due to errors in the console
 - [ ] Bottom tab navigation does not display icons
 - [ ] The app is not styled - make it pretty
 - [ ] The console should not display any warning nor errors in general
@@ -39,7 +39,7 @@ Don't forget to give us access to the repository by either making it public or i
 
 ### Search
 
-- [ ] The search suggestions below are not being displayed correctly
+- [x] The search suggestions below are not being displayed correctly
 - [ ] Pressing on a list entry should open a screen with a movie or a TV series,
 - [ ] Sending search requests is not optimal
 - [ ] Search result displays all TV series and movies. Add additional filters.

@@ -6,6 +6,7 @@ import {
   View,
   ViewStyle,
   Text,
+  ScrollView,
 } from 'react-native';
 import { inputValue$, suggestions$ } from './state';
 import { useAtom, useAtomValue } from 'jotai';
@@ -24,41 +25,63 @@ export function Search({ style }: SearchProps): ReactNode {
     <View style={[searchStyles.root, style]}>
       <TextInput
         ref={inputRef}
-        style={{ height: 40, borderColor: 'red', borderWidth: 2 }}
-        placeholder="type to search..."
+        style={searchStyles.input}
+        placeholder="Search..."
+        placeholderTextColor="#888"
         onChangeText={setInputValue}
         value={inputValue}
       />
 
-      {!inputValue ? null : (
-        <View style={searchStyles.suggestions}>
-          {suggestions.state !== 'hasData'
-            ? null
-            : suggestions.data.map((it) => (
-                <View style={searchStyles.suggestionEntry}>
-                  <Text>{it.title}</Text>
-                </View>
-              ))}
-        </View>
+      {!!inputValue && suggestions.state === 'hasData' && (
+        <ScrollView style={searchStyles.suggestions}>
+          {suggestions.data.map((suggestion, i) => (
+            <View key={i} style={searchStyles.suggestionEntry}>
+              <Text style={searchStyles.suggestionText}>{suggestion.title}</Text>
+            </View>
+          ))}
+        </ScrollView>
       )}
     </View>
   );
 }
 
 const searchStyles = StyleSheet.create({
-  root: {},
-
-  input: {},
-
-  suggestions: {
-    width: '100%',
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-    backgroundColor: 'white',
-    borderWidth: 2,
-    borderColor: 'yellow',
+  root: {
+    position: 'relative',
+    paddingHorizontal: 16,
+    paddingTop: 12,
   },
-
-  suggestionEntry: {},
+  input: {
+    height: 42,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#f9f9f9',
+    fontSize: 16,
+    color: '#333',
+  },
+  suggestions: {
+    position: 'absolute',
+    top: 54,
+    left: 16,
+    right: 16,
+    maxHeight: 150,
+    backgroundColor: '#fff',
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 8,
+    zIndex: 10,
+    elevation: 4,
+  },
+  suggestionEntry: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  suggestionText: {
+    fontSize: 16,
+    color: '#333',
+  },
 });
