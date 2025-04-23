@@ -62,3 +62,16 @@ export async function getTopRatedMoviesQuery(): Promise<Movie[]> {
     return [];
   }
 }
+
+export async function getMoviePosterUrlById(movieId: string): Promise<string | undefined> {
+  try {
+    const url = new URL(`/movies/${movieId}/poster`, apiUrl);
+    const res = await fetch(url.toString());
+    if (!res.ok) return;
+    const json = await res.json();
+    return json.url; // e.g., "/movies/123/poster/img/poster.jpg"
+  } catch (err) {
+    console.error('[getMoviePosterUrlById] error:', err);
+    return;
+  }
+}

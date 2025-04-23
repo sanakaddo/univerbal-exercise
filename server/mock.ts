@@ -65,6 +65,10 @@ app.get('/tv-series/:movieId/poster', (req, res) => {
   res.json({ url: req.url + '/img/poster.jpg' });
 });
 
+app.get('/movies/:movieId/poster', (req, res) => {
+  res.json({ url: req.url + '/img/poster.jpg' });
+});
+
 app.get('/movies/recommended', async (req, res) => {
   const timeoutMs = Math.max(1, Math.random() * 3) * 1000;
   await sleep(timeoutMs);
