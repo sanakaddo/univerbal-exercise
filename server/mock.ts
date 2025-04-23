@@ -56,10 +56,6 @@ app.get('/tv-series/:seriesId/poster', (req, res) => {
   res.json({ url: req.url + '/img/poster.jpg' });
 });
 
-app.get('/tv-series/:seriesId/poster', (req, res) => {
-  res.json({ url: req.url + '/img/poster.jpg' });
-});
-
 let user: User | undefined;
 
 app.get('/users/:userId', (req, res) => {
