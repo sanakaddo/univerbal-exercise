@@ -155,3 +155,4 @@ app.delete('/users/:userId/favorite-movies', (req, res) => {
 app.listen(port, () => {
   console.info(`[server]: Server is running at http://localhost:${port}`);
 });
+
